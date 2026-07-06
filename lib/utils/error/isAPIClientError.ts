@@ -1,4 +1,4 @@
-import type { APIClientError } from "~~/lib/types/Contentstack";
+import type { APIClientError } from "../../types/Contentstack";
 
 export const isAPIClientError = (error: any): error is APIClientError => {
   if (!error || typeof error !== "object") {

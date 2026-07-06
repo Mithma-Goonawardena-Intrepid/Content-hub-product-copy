@@ -1,11 +1,11 @@
 import { createError } from "h3";
 // @ts-ignore
 import type { FetchError } from "node-fetch";
-import type { LogLevel } from "~~/lib/utils/logger/logger";
-import { loggerFactory, logTags } from "~~/lib/utils/logger/logger";
-import type { APIClientError } from "~~/lib/types/Contentstack";
-import { isFetchError } from "~~/lib/utils/error/isFetchError";
-import { isAPIClientError } from "~~/lib/utils/error/isAPIClientError";
+import type { LogLevel } from "../logger/logger";
+import { loggerFactory, logTags } from "../logger/logger";
+import type { APIClientError } from "../../types/Contentstack";
+import { isFetchError } from "./isFetchError";
+import { isAPIClientError } from "./isAPIClientError";
 
 export type ContentstackErrorHandlerConfig = {
   errorMessage: string;

@@ -2,11 +2,11 @@ import "../../../app/utils/global-shim";
 import type { Logger } from "winston";
 // @ts-ignore
 import type SearchProductModel from "search-client-js/src/Model/Product";
-import type { SalesCountry } from "~~/lib/types/Contentstack";
-import { isBrowser } from "~~/lib/utils/isBrowser";
-import { isNotNull } from "~~/lib/utils/isNotNull";
-import type { ParsedReq } from "~~/lib/utils/parseReq";
-import type { ParsedRes } from "~~/lib/utils/parseRes";
+import type { SalesCountry } from "../../types/Contentstack";
+import { isBrowser } from "../isBrowser";
+import { isNotNull } from "../isNotNull";
+import type { ParsedReq } from "../parseReq";
+import type { ParsedRes } from "../parseRes";
 import type { HayabusaAvailabilities } from "../../types/Hayabusa/DeparturesAndAvailabilities";
 
 export enum LogLevel {

@@ -1,19 +1,72 @@
+import "dotenv/config";
 import pkg, { type LivePreviewQuery } from "contentstack";
 const { Stack } = pkg;
 
-const getRuntimeConfig = () => ({
-  public: {
-    contentstackApiKey: process.env.CONTENTSTACK_API_KEY ?? "",
-    contentstackEnableLivePreview:
-      process.env.CONTENTSTACK_ENABLE_LIVE_PREVIEW === "true",
-  },
-  contentstackDeliveryToken: process.env.CONTENTSTACK_DELIVERY_TOKEN ?? "",
-  contentstackEnv: process.env.CONTENTSTACK_ENV ?? "",
-  contentstackBranchAlias: process.env.CONTENTSTACK_BRANCH_ALIAS ?? "",
-  contentstackManagementToken: process.env.CONTENTSTACK_MANAGEMENT_TOKEN ?? "",
-  contentstackPreviewToken: process.env.CONTENTSTACK_PREVIEW_TOKEN ?? "",
-  contentstackRuntimeHost: process.env.CONTENTSTACK_RUNTIME_HOST ?? "",
-});
+const normalizeEnvValue = (value?: string): string => {
+  if (!value) {
+    return "";
+  }
+
+  const trimmed = value.trim();
+
+  // Support quoted values while preserving inner content.
+  if (
+    (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+    (trimmed.startsWith("'") && trimmed.endsWith("'"))
+  ) {
+    return trimmed.slice(1, -1).trim();
+  }
+
+  return trimmed;
+};
+
+const getEnvValue = (primaryKey: string, fallbackKey?: string) => {
+  const primaryValue = normalizeEnvValue(process.env[primaryKey]);
+
+  if (primaryValue) {
+    return primaryValue;
+  }
+
+  const fallbackValue = normalizeEnvValue(
+    fallbackKey ? process.env[fallbackKey] : undefined,
+  );
+
+  if (fallbackValue) {
+    return fallbackValue;
+  }
+
+  return "";
+};
+
+const runtimeConfig = {
+  apiKey: getEnvValue("CONTENTSTACK_API_KEY", "VITE_CONTENTSTACK_API_KEY"),
+  enableLivePreview:
+    getEnvValue(
+      "CONTENTSTACK_ENABLE_LIVE_PREVIEW",
+      "VITE_CONTENTSTACK_ENABLE_LIVE_PREVIEW",
+    ).toLowerCase() === "true",
+  deliveryToken: getEnvValue(
+    "CONTENTSTACK_DELIVERY_TOKEN",
+    "VITE_CONTENTSTACK_DELIVERY_TOKEN",
+  ),
+  environment: getEnvValue("CONTENTSTACK_ENV", "VITE_CONTENTSTACK_ENV"),
+  branchAlias: getEnvValue(
+    "CONTENTSTACK_BRANCH_ALIAS",
+    "VITE_CONTENTSTACK_BRANCH_ALIAS",
+  ),
+  managementToken: getEnvValue(
+    "CONTENTSTACK_MANAGEMENT_TOKEN",
+    "VITE_CONTENTSTACK_MANAGEMENT_TOKEN",
+  ),
+  previewToken: getEnvValue(
+    "CONTENTSTACK_PREVIEW_TOKEN",
+    "VITE_CONTENTSTACK_PREVIEW_TOKEN",
+  ),
+  runtimeHost: getEnvValue(
+    "CONTENTSTACK_RUNTIME_HOST",
+    "VITE_CONTENTSTACK_RUNTIME_HOST",
+  ),
+};
 
 type ClientOptions = {
   livePreviewHash: string;
@@ -25,21 +78,20 @@ const getClientStack = (
   isManagementTokenMode?: boolean,
 ) => {
   const clientStack = Stack({
-    api_key: getRuntimeConfig().public.contentstackApiKey,
-    delivery_token: getRuntimeConfig().contentstackDeliveryToken,
-    environment: getRuntimeConfig().contentstackEnv,
-    branch: getRuntimeConfig().contentstackBranchAlias,
+    api_key: runtimeConfig.apiKey,
+    delivery_token: runtimeConfig.deliveryToken,
+    environment: runtimeConfig.environment,
+    branch: runtimeConfig.branchAlias,
     ...(options
       ? {
           live_preview: {
-            enable: getRuntimeConfig().public.contentstackEnableLivePreview,
+            enable: runtimeConfig.enableLivePreview,
             ...(isManagementTokenMode
               ? {
-                  management_token:
-                    getRuntimeConfig().contentstackManagementToken,
+                  management_token: runtimeConfig.managementToken,
                 }
               : {
-                  preview_token: getRuntimeConfig().contentstackPreviewToken,
+                  preview_token: runtimeConfig.previewToken,
                 }),
           },
         }
@@ -52,7 +104,9 @@ const getClientStack = (
       live_preview: options.livePreviewHash,
     } as LivePreviewQuery);
   } else {
-    clientStack.setHost(getRuntimeConfig().contentstackRuntimeHost);
+    if (runtimeConfig.runtimeHost) {
+      clientStack.setHost(runtimeConfig.runtimeHost);
+    }
   }
 
   return clientStack;

@@ -22,22 +22,16 @@ export const fetchAllProducts = async (
       "map",
       "style",
       "theme",
+      "product_information",
+      "product_images",
+      "product_itinerary",
     ])
     .only([
-      "url",
-      "product_code",
-      "review_rating",
-      "physical_rating",
-      "review_count",
-      "marketing_rating",
-      "duration",
+      "product_information",
       "lead_info.display_name",
-      "countries_visited",
-      "style",
-      "theme",
-      "map",
-      "from_price_original",
-      "from_price_discount",
+      "marketing_rating",
+      "product_images",
+      "product_itinerary",
       "effective_from",
       "effective_to",
       "elements_ref.elements_id",
@@ -92,6 +86,7 @@ export const fetchAllProducts = async (
     }
   }
 
+  console.log(result)
   console.log(`Fetched products from Contentstack`);
 
   return result;

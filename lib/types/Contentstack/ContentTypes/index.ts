@@ -37,3 +37,4 @@ export * from "./Editorial";
 export * from "./PromotedDestinations";
 export * from "./ProductVideo";
 export * from "./TripAccommodation";
+export * from "./ProductInformation"

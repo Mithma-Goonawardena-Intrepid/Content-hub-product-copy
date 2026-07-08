@@ -1,4 +1,4 @@
-import type { Link, JsonRte } from "~~/lib/types/Contentstack";
+import type { JsonRte } from "~~/lib/types/Contentstack";
 
 export type CallToAction = {
   display_name?: string;

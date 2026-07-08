@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import type { Product } from "../../lib/types/Contentstack/ContentTypes/Product";
 import { getAllProducts } from "../common/api/getAllProducts";
+import {
+  checkboxFieldOptions,
+  type CheckboxFieldOption,
+  getSelectedProductFieldValues,
+} from "../common/utils/getSelectedProductFieldValues";
 
 const DefaultPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProductUid, setSelectedProductUid] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedFields, setSelectedFields] = useState<CheckboxFieldOption[]>([]);
 
   useEffect(() => {
     let isActive = true;
@@ -50,8 +56,35 @@ const DefaultPage = () => {
     (product) => product.uid === selectedProductUid,
   );
 
+  const selectedFieldValues = getSelectedProductFieldValues(
+    selectedProduct,
+    selectedFields,
+  );
+
+  const formatFieldValue = (value: unknown): string => {
+    if (value === null || value === undefined) {
+      return "No value found";
+    }
+
+    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+      return String(value);
+    }
+
+    return JSON.stringify(value, null, 2);
+  };
+
+  const handleFieldToggle = (field: CheckboxFieldOption) => {
+    setSelectedFields((prevSelectedFields) => {
+      if (prevSelectedFields.includes(field)) {
+        return prevSelectedFields.filter((item) => item !== field);
+      }
+
+      return [...prevSelectedFields, field];
+    });
+  };
+
   return (
-    <div className="dashboard">
+    <div >
       <div className="dashboard-container">
         <div className="app-component-content">
           <h2>Select a product from Contentstack</h2>
@@ -69,13 +102,35 @@ const DefaultPage = () => {
                   </option>
                 ))}
               </select>
+              <div className="checkbox-group" aria-label="Content fields">
+                {checkboxFieldOptions.map((field) => (
+                  <label key={field} className="checkbox-item">
+                    <input
+                      type="checkbox"
+                      checked={selectedFields.includes(field)}
+                      onChange={() => handleFieldToggle(field)}
+                    />
+                    <span>{field}</span>
+                  </label>
+                ))}
+              </div>
               {selectedProduct ? (
                 <div>
-                  <p>UID: {selectedProduct.uid}</p>
-                  <p>Title: {selectedProduct.title}</p>
+                  <p>UID: {selectedProduct.uid}</p><br/>
                   <p>
                     Display name: {selectedProduct.lead_info?.display_name ?? "N/A"}
                   </p>
+                  {selectedFields.length > 0 ? (
+                    <div className="selected-field-values">
+                      <h4>Selected field values</h4>
+                      {selectedFields.map((field) => (
+                        <div key={field} className="selected-field-item">
+                          <strong>{field}</strong>
+                          <pre>{formatFieldValue(selectedFieldValues[field])}</pre>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                 </div>
               ) : null}
             </>

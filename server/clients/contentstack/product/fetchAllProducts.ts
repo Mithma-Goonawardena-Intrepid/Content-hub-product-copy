@@ -1,90 +1,133 @@
 import type { ClientOptions } from "../Client";
-import { getClientStack } from "../Client";
 import { LogLevel } from "../../../../lib/utils/logger/logger";
 import type { Product } from "../../../../lib/types/Contentstack";
 import { getCurrentUtcDate } from "../../../../lib/utils/datetime/getCurrentUtcDate";
 import { contentstackErrorHandler } from "../../../../lib/utils/error/contentstackErrorHandler";
+import {
+  PRODUCT_CONTENT_TYPE_UID,
+  PRODUCT_PAGE_SIZE,
+  PRODUCT_REFERENCE_FIELDS,
+  getLocaleQueryParam,
+  getProductManagementStack,
+} from "../ManagementConfig";
+
+type ManagementEntriesResponse<T> = {
+  items: T[];
+  count: number;
+};
+
+const sortByMarketingRatingDesc = (products: Product[]): Product[] =>
+  [...products].sort((a, b) => (b.marketing_rating ?? -Infinity) - (a.marketing_rating ?? -Infinity));
+
+const getActiveProductsQuery = () => {
+  // Keep query broad on CMA and apply strict filtering in code.
+  // CMA query operators/locale behavior can differ from CDA and drop entries unexpectedly.
+  return {};
+};
+
+const toIsoDateOnly = (value: unknown): string | null => {
+  if (typeof value !== "string" || value.trim() === "") {
+    return null;
+  }
+
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  return parsed.toISOString().slice(0, 10);
+};
+
+const isActiveByEffectiveTo = (product: Product): boolean => {
+  const effectiveToIsoDate = toIsoDateOnly(product.effective_to);
+  if (!effectiveToIsoDate) {
+    return true;
+  }
+
+  return effectiveToIsoDate >= getCurrentUtcDate();
+};
+
+const applyDeliveryLikeFilters = (products: Product[]): Product[] => {
+  return products.filter(
+    (product) => product.published_to_web === true && isActiveByEffectiveTo(product),
+  );
+};
+
+const createProductsQuery = (
+  localeIso: string,
+  skip: number,
+  limit: number,
+) => {
+  const localeParam = getLocaleQueryParam(localeIso);
+
+  return getProductManagementStack().contentType(PRODUCT_CONTENT_TYPE_UID).entry().query({
+    ...(localeParam ? { locale: localeParam } : {}),
+    skip,
+    limit,
+    include_count: true,
+    include_fallback: true,
+    include_content_type: true,
+    include: PRODUCT_REFERENCE_FIELDS,
+    desc: "marketing_rating",
+    query: getActiveProductsQuery(),
+  });
+};
+
+const extractProducts = (
+  response: ManagementEntriesResponse<unknown> | undefined,
+): Product[] => (Array.isArray(response?.items) ? (response.items as Product[]) : []);
 
 export const fetchAllProducts = async (
   localeIso = "en",
   fetchFullList?: boolean,
-  options?: ClientOptions,
+  _options?: ClientOptions,
 ): Promise<Product[]> => {
-  let result: Product[];
-  const productQuery = getClientStack(options)
-    .ContentType("product")
-    .Query()
-    .language(localeIso)
-    .includeReference([
-      "lead_info.hero_image",
-      "countries_visited",
-      "main_country",
-      "map",
-      "style",
-      "theme",
-      "product_information",
-      "product_images",
-      "product_itinerary",
-    ])
-    .only([
-      "product_information",
-      "lead_info.display_name",
-      "marketing_rating",
-      "product_images",
-      "product_itinerary",
-      "effective_from",
-      "effective_to",
-      "elements_ref.elements_id",
-    ])
-    .includeFallback()
-    .includeContentType()
-    .where("published_to_web", true)
-    .greaterThanOrEqualTo("effective_to", getCurrentUtcDate())
-    .descending("marketing_rating")
-    .toJSON();
+  const firstBatch = await createProductsQuery(localeIso, 0, PRODUCT_PAGE_SIZE)
+    .find()
+    .catch(
+      contentstackErrorHandler(
+        {
+          logErrorLevelOn404: LogLevel.WARN,
+          errorMessage:
+            "An error occurred while fetching 1st batch products from Contentstack",
+        },
+        {},
+      ),
+    ) as unknown as ManagementEntriesResponse<unknown>;
 
-  const resultData = await productQuery.find().catch(
-    contentstackErrorHandler(
-      {
-        logErrorLevelOn404: LogLevel.WARN,
-        errorMessage:
-          "An error occurred while fetching 1st batch products from Contentstack",
-      },
-      {},
-    ),
-  );
-  result = resultData[0];
+  const products = [...extractProducts(firstBatch)];
 
-  if (fetchFullList) {
-    let skip = 100;
-    let limit = 100;
-    while (limit > 0) {
-      const resultData = await productQuery
-        .skip(skip)
-        .limit(limit)
-        .find()
-        .catch(
-          contentstackErrorHandler(
-            {
-              logErrorLevelOn404: LogLevel.WARN,
-              errorMessage:
-                "An error occurred while fetching all products from Contentstack",
-            },
-            {},
-          ),
-        );
-
-      if (resultData[0]?.length) {
-        result = result.concat(resultData[0]);
-        if (resultData[0].length < 100) {
-          limit = 0;
-        }
-        skip += limit;
-      } else {
-        limit = 0;
-      }
-    }
+  if (!fetchFullList || products.length < PRODUCT_PAGE_SIZE) {
+    return sortByMarketingRatingDesc(applyDeliveryLikeFilters(products));
   }
 
-  return result;
+  let skip = PRODUCT_PAGE_SIZE;
+  while (true) {
+    const nextBatch = await createProductsQuery(localeIso, skip, PRODUCT_PAGE_SIZE)
+      .find()
+      .catch(
+        contentstackErrorHandler(
+          {
+            logErrorLevelOn404: LogLevel.WARN,
+            errorMessage:
+              "An error occurred while fetching all products from Contentstack",
+          },
+          {},
+        ),
+      ) as unknown as ManagementEntriesResponse<unknown>;
+
+    const batchItems = extractProducts(nextBatch);
+    if (!batchItems.length) {
+      break;
+    }
+
+    products.push(...batchItems);
+    if (batchItems.length < PRODUCT_PAGE_SIZE) {
+      break;
+    }
+
+    skip += PRODUCT_PAGE_SIZE;
+  }
+
+  return sortByMarketingRatingDesc(applyDeliveryLikeFilters(products));
 };

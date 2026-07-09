@@ -104,19 +104,21 @@ const getClientStack = (
       content_type_uid: options.contentTypeUid,
       live_preview: options.livePreviewHash,
     } as LivePreviewQuery);
-  } else {
-    if (runtimeConfig.runtimeHost) {
-      clientStack.setHost(runtimeConfig.runtimeHost);
-    }
+  } else if (runtimeConfig.runtimeHost) {
+    clientStack.setHost(runtimeConfig.runtimeHost);
   }
 
   return clientStack;
 };
 
-const getManagementStack = () =>
+const getManagementStack = (branchUid?: string) =>
   contentstack
     .client({})
-    .stack({ api_key: runtimeConfig.apiKey, management_token: runtimeConfig.managementToken });
+    .stack({
+      api_key: runtimeConfig.apiKey,
+      management_token: runtimeConfig.managementToken,
+      ...(branchUid ? { branch_uid: branchUid } : {}),
+    });
 
 export type { ClientOptions };
 export { getClientStack, getManagementStack, runtimeConfig };

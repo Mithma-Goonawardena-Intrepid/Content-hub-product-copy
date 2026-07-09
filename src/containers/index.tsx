@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import type { Product } from "../../lib/types/Contentstack/ContentTypes/Product";
 import { getAllProducts } from "../common/api/getAllProducts";
+import { updateProduct } from "../common/api/updateProduct";
 import {
   checkboxFieldOptions,
   type CheckboxFieldOption,
   getSelectedProductFieldValues,
 } from "../common/utils/getSelectedProductFieldValues";
+import { useAppLocation } from "../common/hooks/useAppLocation";
 
 const DefaultPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,6 +15,15 @@ const DefaultPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [selectedFields, setSelectedFields] = useState<CheckboxFieldOption[]>([]);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateError, setUpdateError] = useState("");
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  const { location } = useAppLocation();
+  const currentEntryUid: string =
+    (location && "entry" in location
+      ? (location.entry?.getData() as { uid?: string } | undefined)?.uid
+      : undefined) ?? "";
 
   useEffect(() => {
     let isActive = true;
@@ -73,6 +84,32 @@ const DefaultPage = () => {
     return JSON.stringify(value, null, 2);
   };
 
+  const handleUpdate = async () => {
+    if (!selectedProductUid || selectedFields.length === 0 || !selectedProduct) return;
+
+    const fields = {
+      ...(selectedFields.includes("ETI") ? { product_information: selectedProduct.product_information } : {}),
+      ...(selectedFields.includes("Images") ? { product_images: selectedProduct.product_images } : {}),
+      ...(selectedFields.includes("Itinerary") ? { product_itinerary: selectedProduct.product_itinerary } : {}),
+      ...(selectedFields.includes("Marketing") ? { marketing_rating: selectedProduct.marketing_rating } : {}),
+    };
+
+    setIsUpdating(true);
+    setUpdateError("");
+    setUpdateSuccess(false);
+
+    try {
+      if(currentEntryUid !== selectedProductUid && currentEntryUid !== '') {
+        await updateProduct(currentEntryUid, fields);
+        setUpdateSuccess(true);
+      }
+    } catch (err) {
+      setUpdateError(err instanceof Error ? err.message : "Update failed.");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
   const handleFieldToggle = (field: CheckboxFieldOption) => {
     setSelectedFields((prevSelectedFields) => {
       if (prevSelectedFields.includes(field)) {
@@ -87,6 +124,9 @@ const DefaultPage = () => {
     <div >
       <div className="dashboard-container">
         <div className="app-component-content">
+          {currentEntryUid ? (
+            <p><strong>Current entry UID:</strong> {currentEntryUid}</p>
+          ) : null}
           <h2>Select a product from Contentstack</h2>
           {isLoading ? <p>Loading products...</p> : null}
           {error ? <p>{error}</p> : null}
@@ -131,6 +171,15 @@ const DefaultPage = () => {
                       ))}
                     </div>
                   ) : null}
+                  <br />
+                  <button
+                    onClick={handleUpdate}
+                    disabled={selectedFields.length === 0 || isUpdating}
+                  >
+                    {isUpdating ? "Updating..." : "Update entry"}
+                  </button>
+                  {updateSuccess ? <p>Entry updated successfully.</p> : null}
+                  {updateError ? <p>{updateError}</p> : null}
                 </div>
               ) : null}
             </>

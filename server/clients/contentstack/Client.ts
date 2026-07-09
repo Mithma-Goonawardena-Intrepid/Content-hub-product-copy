@@ -1,5 +1,6 @@
 import "dotenv/config";
 import pkg, { type LivePreviewQuery } from "contentstack";
+import * as contentstack from "@contentstack/management";
 const { Stack } = pkg;
 
 const normalizeEnvValue = (value?: string): string => {
@@ -112,5 +113,10 @@ const getClientStack = (
   return clientStack;
 };
 
+const getManagementStack = () =>
+  contentstack
+    .client({})
+    .stack({ api_key: runtimeConfig.apiKey, management_token: runtimeConfig.managementToken });
+
 export type { ClientOptions };
-export { getClientStack };
+export { getClientStack, getManagementStack, runtimeConfig };

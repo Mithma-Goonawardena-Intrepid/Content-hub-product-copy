@@ -86,8 +86,5 @@ export const fetchAllProducts = async (
     }
   }
 
-  console.log(result)
-  console.log(`Fetched products from Contentstack`);
-
   return result;
 };

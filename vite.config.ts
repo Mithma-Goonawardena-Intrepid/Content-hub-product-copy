@@ -3,6 +3,7 @@ import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { fetchAllProducts } from "./server/clients/contentstack/product/fetchAllProducts";
+import { updateProduct } from "./server/clients/contentstack/product/UpdateProduct";
 
 const productsApiPlugin = (): Plugin => ({
   name: "products-api-plugin",
@@ -10,6 +11,31 @@ const productsApiPlugin = (): Plugin => ({
     server.middlewares.use(async (request, response, next) => {
       if (!request.url?.startsWith("/api/products")) {
         next();
+        return;
+      }
+
+      const patchMatch = /^\/api\/products\/([^?]+)/.exec(request.url);
+      if (request.method === "PATCH" && patchMatch) {
+        try {
+          const uid = decodeURIComponent(patchMatch[1]);
+          const url = new URL(request.url, "http://localhost");
+          const locale = url.searchParams.get("locale") ?? "en";
+
+          const chunks: Buffer[] = [];
+          for await (const chunk of request) chunks.push(chunk as Buffer);
+          const fields = JSON.parse(Buffer.concat(chunks).toString());
+
+          await updateProduct(uid, fields, locale);
+
+          response.statusCode = 200;
+          response.setHeader("Content-Type", "application/json");
+          response.end(JSON.stringify({}));
+        } catch (error) {
+          const message = error instanceof Error ? error.message : "Failed to update product";
+          response.statusCode = 500;
+          response.setHeader("Content-Type", "application/json");
+          response.end(JSON.stringify({ error: message }));
+        }
         return;
       }
 

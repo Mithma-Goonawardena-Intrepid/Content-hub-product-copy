@@ -1,4 +1,6 @@
-import type { ProductInformation, ProductItinerary, Picture } from "../../../../lib/types/Contentstack";
+import type { ProductInformation } from "../../../../lib/types/Contentstack/ContentTypes/ProductInformation";
+import type { ProductItinerary } from "../../../../lib/types/Contentstack/ContentTypes/ProductItinerary";
+import type { Picture } from "../../../../lib/types/Contentstack/ContentTypes/Picture";
 import { runtimeConfig } from "../Client";
 import { PRODUCT_CONTENT_TYPE_UID, getProductManagementHost } from "../ManagementConfig";
 

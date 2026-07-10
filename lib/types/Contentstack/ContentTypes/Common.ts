@@ -1,5 +1,3 @@
-import type { Product, DestinationMonths } from "~~/lib/types/Contentstack";
-
 export type publishDetails = {
   environment: string;
   locale: string;
@@ -27,8 +25,8 @@ export type CommonSiteMapContentTypeFields = {
   uid?: string;
   url: string;
   publish_details: publishDetails;
-  destination_months?: DestinationMonths;
-  next_season?: Product[] | undefined;
-  previous_season?: Product[] | undefined;
+  destination_months?: unknown;
+  next_season?: unknown[] | undefined;
+  previous_season?: unknown[] | undefined;
   default_trip?: boolean;
 };

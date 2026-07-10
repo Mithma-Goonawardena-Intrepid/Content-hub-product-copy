@@ -28,5 +28,19 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["lib", "server", "nuxt-app"]
+  "include": [
+    "lib/utils/**/*.ts",
+    "lib/types/Image.ts",
+    "lib/types/Contentstack/ContentTypes/Common.ts",
+    "lib/types/Contentstack/ContentTypes/Picture.ts",
+    "lib/types/Contentstack/ContentTypes/Product.ts",
+    "lib/types/Contentstack/ContentTypes/ProductInformation.ts",
+    "lib/types/Contentstack/ContentTypes/ProductItinerary.ts",
+    "lib/types/Contentstack/ContentTypes/TripItineraryDay.ts",
+    "lib/types/Contentstack/GlobalFields/ElementsRef.ts",
+    "lib/types/Contentstack/GlobalFields/ProductPoint.ts",
+    "server/**/*.ts",
+    "nuxt-app/**/*.vue",
+    "nuxt.config.ts"
+  ]
 }

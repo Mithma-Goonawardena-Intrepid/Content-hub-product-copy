@@ -1,4 +1,3 @@
-import "../../../app/utils/global-shim";
 import type { Logger } from "winston";
 import { isNotNull } from "../isNotNull";
 import type { ParsedReq } from "../parseReq";

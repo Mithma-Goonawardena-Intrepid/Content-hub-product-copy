@@ -61,20 +61,12 @@ App runs on `http://localhost:3000` by default (or next available port if `3000`
 - `yarn build:check` - Nuxt typecheck + Nuxt build
 - `yarn typecheck` - Run Nuxt typecheck
 - `yarn lint` - Run ESLint
-- `yarn format` - Run Prettier for src files
+- `yarn format` - Run Prettier for Nuxt/server/lib files
 - `yarn preview` - Preview Nuxt production build
-
-E2E scripts:
-
-- `yarn test:chrome`
-- `yarn test:firefox`
-- `yarn test:chrome-headed`
-- `yarn test:firefox-headed`
-- `yarn test:report`
-- `yarn test:report-ci`
 
 ## Notes
 
 - Product fetch uses Management API with pagination and delivery-like filtering in code.
 - Results are sorted by `marketing_rating` descending.
 - The current entry is intentionally hidden from the product selection list.
+- The root `manifest.json` is kept because it defines the Contentstack Marketplace app registration and locations.

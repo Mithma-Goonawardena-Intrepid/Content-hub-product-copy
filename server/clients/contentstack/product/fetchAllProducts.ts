@@ -1,5 +1,5 @@
 import type { ClientOptions } from "../Client";
-import type { Product } from "../../../../lib/types/Contentstack";
+import type { Product } from "../../../../lib/types/Contentstack/ContentTypes/Product";
 import { getCurrentUtcDate } from "../../../../lib/utils/datetime/getCurrentUtcDate";
 import {
   PRODUCT_CONTENT_TYPE_UID,

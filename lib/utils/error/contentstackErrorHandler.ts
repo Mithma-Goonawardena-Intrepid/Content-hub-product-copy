@@ -3,7 +3,7 @@ import { createError } from "h3";
 import type { FetchError } from "node-fetch";
 import type { LogLevel } from "../logger/logger";
 import { loggerFactory, logTags } from "../logger/logger";
-import type { APIClientError } from "../../types/Contentstack";
+import type { APIClientError } from "../../types/Contentstack/System/APIClientError";
 import { isFetchError } from "./isFetchError";
 import { isAPIClientError } from "./isAPIClientError";
 

@@ -1,5 +1,5 @@
 import type { ProductPoint } from "../GlobalFields/ProductPoint";
-import type { CommonContentTypeFields } from "~~/lib/types/Contentstack";
+import type { CommonContentTypeFields } from "./Common";
 
 export type ProductInformation = CommonContentTypeFields & {
   title: string;

@@ -1,8 +1,20 @@
-import type {
-  Departure as HayabusaDepartureType,
-  Product as HayabusaProductType,
-  Price as HayabusaPriceType,
-} from "@intrepid-travel/hayabusa-data-client/dist/types";
+type HayabusaDepartureType = {
+  startDate: string | Date;
+  endDate: string | Date;
+  attrs: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+type HayabusaProductType = {
+  attrs?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
+type HayabusaPriceType = {
+  validTo: string | Date;
+  validFrom: string | Date;
+  [key: string]: unknown;
+};
 
 export type HayabusaAvailabilities = { date: string; lowestPrice: string }[];
 

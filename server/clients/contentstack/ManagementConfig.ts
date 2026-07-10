@@ -15,10 +15,15 @@ export const PRODUCT_REFERENCE_FIELDS = [
   "product_itinerary",
 ] as const;
 
-const normalizeManagementHost = (host?: string): string =>
-  (host || "api.contentstack.io")
+const normalizeManagementHost = (host?: string): string => {
+  const rawHost = (host || "api.contentstack.io").trim();
+  const withoutProtocol = rawHost.replace(/^[a-z]+:\/\//i, "");
+  const hostnameOnly = withoutProtocol.split("/")[0] || "api.contentstack.io";
+
+  return hostnameOnly
     .replace(/^cdn\./, "api.")
     .replace(/^eu-cdn\./, "eu-api.");
+};
 
 export const getProductManagementHost = (): string =>
   normalizeManagementHost(runtimeConfig.runtimeHost);

@@ -1,5 +1,5 @@
 import type { IncomingHttpHeaders } from "http";
-import type { NodeIncomingMessage } from "h3";
+import type { IncomingMessage } from "http";
 import { headerSanitizer } from "./headerSanitizer";
 import { parseUrlWithHost } from "./parseURL";
 
@@ -11,7 +11,7 @@ export type ParsedReq = {
   headers?: IncomingHttpHeaders;
 };
 
-export const parseReq = (req: NodeIncomingMessage): ParsedReq => {
+export const parseReq = (req: IncomingMessage): ParsedReq => {
   return {
     ...parseUrlWithHost(req.url, req.headers.host),
     host: req.headers.host,

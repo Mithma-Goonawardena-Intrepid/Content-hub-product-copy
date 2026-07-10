@@ -29,6 +29,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "lib", "server"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "lib", "server", "nuxt-app"]
 }

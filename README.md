@@ -1,104 +1,80 @@
-# Contentstack Marketplace App Boilerplate
+# Product Field Copy App (Contentstack Marketplace)
 
-## Provider
+This project is a Contentstack Marketplace app used to copy selected fields from one product entry into the currently opened product entry.
 
-`<MarketplaceAppProvider>`
+## What This App Does
 
-This provider is responsible for the following actions
+- Loads products from Contentstack through a local middleware endpoint.
+- Excludes the currently opened entry from the product select dropdown.
+- Lets you choose which fields to copy:
+  - ETI (`product_information`)
+  - Images (`product_images`)
+  - Itinerary (`product_itinerary`)
+  - Marketing (`marketing_rating`)
+- Shows selected field values before update.
+- Updates the currently opened entry via Contentstack Management API.
 
-- Initialize the ContentStack SDK
-- Make the SDK instance available via hooks to avoid props drilling
-- Set global properties for Analytics and Error tracking
-- Send "App Initialized / Failed" event
+## Runtime Flow
 
-## Available Hooks
+1. Frontend requests `GET /api/products`.
+2. Vite middleware handles the request and calls server-side fetch logic.
+3. Server-side fetch uses Contentstack Management SDK and applies delivery-like filters/sorting.
+4. User selects fields and submits update.
+5. Frontend calls `PATCH /api/products/:uid`.
+6. Vite middleware proxies update to server-side update logic, which sends a `PUT` to Contentstack Management API.
 
-- useApi
-- useAppConfig
-- useAppLocation
-- useAppSdk
-- useCustomField
-- useEntry
-- useFrame
-- useHostUrl
-- useInstallationData
-- useManagementClient
-- useSdkDataByPath
+## Local API Endpoints
 
-### Hook Details
+- `GET /api/products?locale=en&fetchFullList=true`
+  - Returns `{ products: Product[] }`
+- `PATCH /api/products/:uid?locale=en`
+  - Body is partial product fields to update
+  - Returns `{}` on success
 
-#### `useApi`
-Context-aware API hook that provides structured access to Contentstack App SDK API with clear separation between Contentstack CMA operations and direct API access.
+## Configuration
 
-**Returns:**
-- `callCmaApi(endpoint, options)` - Call Contentstack CMA API endpoints
-- `callDirectApi(url, options)` - Direct API access for custom use cases
-- `isApiReady` - Boolean indicating if the API is ready to use
+Create a `.env` file in the project root. At minimum for fetch/update flows, set:
 
-**Example:**
-```typescript
-const { callCmaApi, callDirectApi, isApiReady } = useApi();
+- `CONTENTSTACK_API_KEY` (or `VITE_CONTENTSTACK_API_KEY`)
+- `CONTENTSTACK_MANAGEMENT_TOKEN` (or `VITE_CONTENTSTACK_MANAGEMENT_TOKEN`)
 
-// Contentstack CMA operations
-const response = await callCmaApi('/v3/content_types');
-const contentTypes = await response.json();
+Optional but recommended:
 
-// Direct API access
-const response = await callDirectApi('/custom-endpoint');
-const data = await response.json();
+- `CONTENTSTACK_BRANCH_ALIAS` (or `VITE_CONTENTSTACK_BRANCH_ALIAS`)
+- `CONTENTSTACK_RUNTIME_HOST` (or `VITE_CONTENTSTACK_RUNTIME_HOST`)
+
+The app also supports additional Contentstack config values used by shared clients (environment, delivery token, preview token, live preview).
+
+## Development
+
+```bash
+npm install
+npm run dev
 ```
 
-#### `useManagementClient`
-Hook to get Contentstack Management SDK client instance. Returns the initialized management client for direct SDK operations.
+App runs on `http://localhost:3000` by default.
 
-**Returns:**
-- `managementClient` - The initialized Management SDK client or null
+## Scripts
 
-**Example:**
-```typescript
-const managementClient = useManagementClient();
-const { apiKey } = useAppIds();
+- `npm run dev` - Start local dev server
+- `npm run build` - Build production bundle
+- `npm run build:check` - TypeScript build check + Vite build
+- `npm run typecheck` - Run TypeScript no-emit check
+- `npm run lint` - Run ESLint
+- `npm run format` - Run Prettier for src files
+- `npm run preview` - Preview built app
 
-if (managementClient && apiKey) {
-  const stack = await managementClient.stack({ api_key: apiKey });
-  const entries = await stack.contentType('blog').entry().query().find();
-}
-```
+E2E scripts:
 
-## Routes
+- `npm run test:chrome`
+- `npm run test:firefox`
+- `npm run test:chrome-headed`
+- `npm run test:firefox-headed`
+- `npm run test:report`
+- `npm run test:report-ci`
 
-Each route represents one location. It is recommended to lazy load the route components to reduce the bundle
-size.
+## Notes
 
-#### Adding new route
-
-- Create a new Route component inside route. Use default export
-  - Inside `App.tsx`, lazy load the route component.
-    - eg: `const CustomFieldExtension = React.lazy(() => import("./routes/CustomField"))`
-  - Add the route wrapped inside `Suspense`.
-    - Eg: ` <Route path="/new" element={<Suspense><CustomFieldExtension /></Suspense>} />`
-
-## Testing
-
-- All e2e test files are stored in e2e folder
-- Create a `.env` file in the root directory & add environment variables as shown in `.env.sample` file.
-- Please refer the below commands to run e2e tests locally and setup the perquisites before running them.
-- `Note`: To run the below commands make sure the app is running in the background i.e on port `http://localhost:3000`
-
-  ```
-    "test:chrome": "npx playwright test --config=playwright.config.ts --project=Chromium",
-    "test:firefox": "npx playwright test --config=playwright.config.ts --project=firefox",
-    "test:chrome-headed": "npx playwright test --headed --config=playwright.config.ts --project=Chromium",
-    "test:firefox-headed": "npx playwright test --headed --config=playwright.config.ts --project=firefox"
-  ```
-
-- Unit & integration tests are stored in `src/__tests__` folder
-- run `npm run test` to run unit and integration tests
-
-## Styling
-
-- This setup uses basic CSS for styling
-
-## Reference to documentation
-
-- [Marketplace App Boilerplate](https://www.contentstack.com/docs/developers/developer-hub/marketplace-app-boilerplate/)
+- Product fetch uses Management API with pagination and delivery-like filtering in code.
+- Results are sorted by `marketing_rating` descending.
+- The current entry is intentionally hidden from the product selection list.

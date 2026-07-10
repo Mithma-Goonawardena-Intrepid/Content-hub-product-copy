@@ -19,12 +19,6 @@ type ManagementEntriesResponse<T> = {
 const sortByMarketingRatingDesc = (products: Product[]): Product[] =>
   [...products].sort((a, b) => (b.marketing_rating ?? -Infinity) - (a.marketing_rating ?? -Infinity));
 
-const getActiveProductsQuery = () => {
-  // Keep query broad on CMA and apply strict filtering in code.
-  // CMA query operators/locale behavior can differ from CDA and drop entries unexpectedly.
-  return {};
-};
-
 const toIsoDateOnly = (value: unknown): string | null => {
   if (typeof value !== "string" || value.trim() === "") {
     return null;
@@ -69,7 +63,7 @@ const createProductsQuery = (
     include_content_type: true,
     include: PRODUCT_REFERENCE_FIELDS,
     desc: "marketing_rating",
-    query: getActiveProductsQuery(),
+    query: {},
   });
 };
 

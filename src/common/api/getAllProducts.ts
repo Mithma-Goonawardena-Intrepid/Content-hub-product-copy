@@ -5,11 +5,12 @@ type ProductsApiResponse = {
   error?: string;
 };
 
-export const getAllProducts = async (locale = "en"): Promise<Product[]> => {
-  const response = await fetch(
-    `/api/products?locale=${encodeURIComponent(locale)}&fetchFullList=true`,
-  );
+const buildProductsUrl = (locale: string): string =>
+  `/api/products?locale=${encodeURIComponent(locale)}&fetchFullList=true`;
 
+const parseProductsPayload = async (
+  response: Response,
+): Promise<ProductsApiResponse> => {
   const contentType = response.headers.get("content-type") ?? "";
 
   if (!contentType.includes("application/json")) {
@@ -20,7 +21,12 @@ export const getAllProducts = async (locale = "en"): Promise<Product[]> => {
     );
   }
 
-  const payload = (await response.json()) as ProductsApiResponse;
+  return (await response.json()) as ProductsApiResponse;
+};
+
+export const getAllProducts = async (locale = "en"): Promise<Product[]> => {
+  const response = await fetch(buildProductsUrl(locale));
+  const payload = await parseProductsPayload(response);
 
   if (!response.ok) {
     throw new Error(payload.error || `Failed to fetch products: ${response.status}`);

@@ -1,6 +1,6 @@
 import type { ProductInformation, ProductItinerary, Picture } from "../../../../lib/types/Contentstack";
 import { runtimeConfig } from "../Client";
-import { PRODUCT_CONTENT_TYPE_UID, getProductManagementHost } from "./../ManagementConfig";
+import { PRODUCT_CONTENT_TYPE_UID, getProductManagementHost } from "../ManagementConfig";
 
 type UpdateProductFields = {
   product_information?: ProductInformation[];

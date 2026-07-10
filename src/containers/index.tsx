@@ -87,7 +87,7 @@ const ProductDetails = ({
     <div>
       <p>UID: {selectedProduct.uid}</p>
       <br />
-      <p>Display name: {selectedProduct.lead_info?.display_name ?? "N/A"}</p>
+      <p>Display name: {selectedProduct.title ?? "N/A"}</p>
       {selectedFields.length > 0 ? (
         <div className="selected-field-values">
           <h4>Selected field values</h4>
@@ -103,6 +103,7 @@ const ProductDetails = ({
       <button onClick={onUpdate} disabled={selectedFields.length === 0 || isUpdating}>
         {isUpdating ? "Updating..." : "Update entry"}
       </button>
+      <br />
       {updateSuccess ? <p>Entry updated successfully.</p> : null}
       {updateError ? <p>{updateError}</p> : null}
     </div>
@@ -112,6 +113,7 @@ const ProductDetails = ({
 const DefaultPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProductUid, setSelectedProductUid] = useState("");
+  const [productSearchValue, setProductSearchValue] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [selectedFields, setSelectedFields] = useState<CheckboxFieldOption[]>([]);
@@ -131,16 +133,14 @@ const DefaultPage = () => {
     const loadProducts = async () => {
       try {
         const nextProducts = await getAllProducts("en");
-        const firstSelectableProduct = nextProducts.find(
-          (product) => product.uid !== currentEntryUid,
-        );
 
         if (!isActive) {
           return;
         }
 
         setProducts(nextProducts);
-        setSelectedProductUid(firstSelectableProduct?.uid ?? "");
+        setSelectedProductUid("");
+        setProductSearchValue("");
         setError("");
       } catch (loadError) {
         if (!isActive) {
@@ -166,9 +166,16 @@ const DefaultPage = () => {
     (product) => product.uid !== currentEntryUid,
   );
 
+  const productOptions = selectableProducts.map((product) => ({
+    uid: product.uid,
+    label: product.title,
+  }));
+
   const selectedProduct = selectableProducts.find(
     (product) => product.uid === selectedProductUid,
   );
+
+  const selectedProductLabel = selectedProduct?.title ?? "";
 
   const selectedFieldValues = getSelectedProductFieldValues(
     selectedProduct,
@@ -206,6 +213,29 @@ const DefaultPage = () => {
     );
   };
 
+  const handleProductPickerChange = (value: string) => {
+    setProductSearchValue(value);
+
+    const selectedOption = productOptions.find((option) => option.label === value);
+    if (selectedOption) {
+      setSelectedProductUid(selectedOption.uid);
+      return;
+    }
+
+    setSelectedProductUid("");
+  };
+
+  const handleProductPickerBlur = () => {
+    if (!productSearchValue.trim()) {
+      setProductSearchValue("");
+    }
+  };
+
+  const handleProductPickerActivate = () => {
+    // Clear typed query so suggestions can be reopened without blur/focus cycling.
+    setProductSearchValue("");
+  };
+
   return (
     <div>
       <div className="dashboard-container">
@@ -216,16 +246,22 @@ const DefaultPage = () => {
           {!isLoading && error && <p>{error}</p>}
           {!isLoading && !error ? (
             <>
-              <select
-                value={selectedProductUid}
-                onChange={(event) => setSelectedProductUid(event.target.value)}
-              >
-                {selectableProducts.map((product) => (
-                  <option key={product.uid} value={product.uid}>
-                    {product.lead_info?.display_name ?? product.title}
-                  </option>
+              <input
+                type="text"
+                list="product-options"
+                placeholder={selectedProductLabel || "Type to search products"}
+                value={productSearchValue}
+                style={{ width: "300px" }}
+                onChange={(event) => handleProductPickerChange(event.target.value)}
+                onBlur={handleProductPickerBlur}
+                onFocus={handleProductPickerActivate}
+                onClick={handleProductPickerActivate}
+              />
+              <datalist id="product-options">
+                {productOptions.map((option) => (
+                  <option key={option.uid} value={option.label} />
                 ))}
-              </select>
+              </datalist>
               <div className="checkbox-group" aria-label="Content fields">
                 {checkboxFieldOptions.map((field) => (
                   <label key={field} className="checkbox-item">

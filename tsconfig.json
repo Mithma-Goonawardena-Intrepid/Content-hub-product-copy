@@ -14,10 +14,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
 
     /* Path aliases */
-    "baseUrl": ".",
     "paths": {
       "~~/*": ["./*"],
       "~/*": ["./*"]
@@ -29,5 +28,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "lib", "server", "nuxt-app"]
+  "include": ["lib", "server", "nuxt-app"]
 }

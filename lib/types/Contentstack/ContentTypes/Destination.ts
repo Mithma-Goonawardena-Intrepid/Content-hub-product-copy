@@ -1,5 +1,4 @@
 import type { IHtmlToJsonElementTagsAttributes } from "@contentstack/json-rte-serializer";
-import type { HayabusaTopDeal } from "../../Hayabusa/TopDeal";
 import type { Product } from "./Product";
 import type { DestinationInformation } from "./DestinationInformation";
 import type { PromotedDestinations } from "./PromotedDestinations";
@@ -63,7 +62,7 @@ export type Destination = CommonContentTypeFields & {
   tailorMadeTripCard?: Picture;
   topDeals: {
     products: Product[];
-    deals: HayabusaTopDeal[];
+    deals: unknown[];
   };
   url: string;
   video: Video[];

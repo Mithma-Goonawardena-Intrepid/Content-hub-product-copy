@@ -43,6 +43,9 @@
       "h3": [
         "../node_modules/h3"
       ],
+      "vite/client": [
+        "../node_modules/vite/client"
+      ],
       "nitropack/types": [
         "../node_modules/nitropack/types"
       ],

@@ -1,49 +1,49 @@
 import process from 'node:process';globalThis._importMeta_={url:import.meta.url,env:process.env};import { tmpdir } from 'node:os';
-import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestURL, getRequestHeader as getRequestHeader$1, getResponseHeader, getRequestHeaders as getRequestHeaders$1, setResponseHeaders as setResponseHeaders$1, setResponseStatus as setResponseStatus$1, send as send$1, removeResponseHeader, appendResponseHeader as appendResponseHeader$1, setResponseHeader as setResponseHeader$1, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, readBody as readBody$1, getQuery as getQuery$2 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/nitropack/node_modules/h3/dist/index.mjs';
+import { defineEventHandler, handleCacheHeaders, splitCookiesString, createEvent, fetchWithEvent, isEvent, eventHandler, setHeaders, createError, sendRedirect, proxyRequest, getRequestURL, getRequestHeader as getRequestHeader$1, getResponseHeader, getRequestHeaders as getRequestHeaders$1, setResponseHeaders as setResponseHeaders$1, setResponseStatus as setResponseStatus$1, send as send$1, removeResponseHeader, appendResponseHeader as appendResponseHeader$1, setResponseHeader as setResponseHeader$1, createApp, createRouter as createRouter$1, toNodeListener, lazyEventHandler, getResponseStatus, getRouterParam, readBody as readBody$1, getQuery as getQuery$2 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/nitropack/node_modules/h3/dist/index.mjs';
 import { Server } from 'node:http';
 import { resolve, dirname, join } from 'node:path';
 import crypto$1 from 'node:crypto';
 import { parentPort, threadId } from 'node:worker_threads';
-import { escapeHtml } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/@vue/shared/dist/shared.cjs.js';
-import viteNodeEntry_mjs from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
-import { viteNodeFetch } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
-import { defineEventHandler as defineEventHandler$2, getRouterParam as getRouterParam$1, createError as createError$2 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/h3/dist/_entries/node.mjs';
-import pkg from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/contentstack/dist/node/contentstack.js';
-import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/vue-bundle-renderer/dist/runtime.mjs';
-import { getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, defineEventHandler as defineEventHandler$1, createError as createError$1, getQuery as getQuery$1, readBody, getResponseStatusText, getResponseStatus as getResponseStatus$1 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/@nuxt/nitro-server/node_modules/h3/dist/index.mjs';
-import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, encodePath, joinRelativeURL } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/ufo/dist/index.mjs';
-import destr, { destr as destr$1 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/destr/dist/index.mjs';
-import { createHooks } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/nitropack/node_modules/hookable/dist/index.mjs';
-import { createFetch, Headers as Headers$1 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/ofetch/dist/node.mjs';
-import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/node-mock-http/dist/index.mjs';
-import { createStorage, defineDriver, prefixStorage } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/unstorage/dist/index.mjs';
-import unstorage_47drivers_47fs from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/unstorage/drivers/fs.mjs';
-import fsDriver from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/unstorage/drivers/fs-lite.mjs';
-import lruCache from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/unstorage/drivers/lru-cache.mjs';
-import { digest, hash as hash$1 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/ohash/dist/index.mjs';
-import { klona } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/klona/dist/index.mjs';
-import defu, { defuFn } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/defu/dist/defu.mjs';
-import { snakeCase } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/scule/dist/index.mjs';
-import { getContext } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/unctx/dist/index.mjs';
-import { toRouteMatcher, createRouter } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/radix3/dist/index.mjs';
+import { escapeHtml } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/@vue/shared/dist/shared.cjs.js';
+import viteNodeEntry_mjs from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/@nuxt/vite-builder/dist/vite-node-entry.mjs';
+import { viteNodeFetch } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/@nuxt/vite-builder/dist/vite-node.mjs';
+import { defineEventHandler as defineEventHandler$2, getRouterParam as getRouterParam$1, createError as createError$2 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/h3/dist/_entries/node.mjs';
+import pkg from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/contentstack/dist/node/contentstack.js';
+import { createRenderer, getRequestDependencies, getPreloadLinks, getPrefetchLinks } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/vue-bundle-renderer/dist/runtime.mjs';
+import { getRequestHeader, setResponseHeaders, setResponseStatus, send, getRequestHeaders, setResponseHeader, appendResponseHeader, defineEventHandler as defineEventHandler$1, createError as createError$1, getQuery as getQuery$1, readBody, getResponseStatusText, getResponseStatus as getResponseStatus$1 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/@nuxt/nitro-server/node_modules/h3/dist/index.mjs';
+import { parseURL, withoutBase, joinURL, getQuery, withQuery, withTrailingSlash, decodePath, withLeadingSlash, withoutTrailingSlash, encodePath, joinRelativeURL } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/ufo/dist/index.mjs';
+import destr, { destr as destr$1 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/destr/dist/index.mjs';
+import { createHooks } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/nitropack/node_modules/hookable/dist/index.mjs';
+import { createFetch, Headers as Headers$1 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/ofetch/dist/node.mjs';
+import { fetchNodeRequestHandler, callNodeRequestHandler } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/node-mock-http/dist/index.mjs';
+import { createStorage, defineDriver, prefixStorage } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/unstorage/dist/index.mjs';
+import unstorage_47drivers_47fs from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/unstorage/drivers/fs.mjs';
+import fsDriver from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/unstorage/drivers/fs-lite.mjs';
+import lruCache from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/unstorage/drivers/lru-cache.mjs';
+import { digest, hash as hash$1 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/ohash/dist/index.mjs';
+import { klona } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/klona/dist/index.mjs';
+import defu, { defuFn } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/defu/dist/defu.mjs';
+import { snakeCase } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/scule/dist/index.mjs';
+import { getContext } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/unctx/dist/index.mjs';
+import { toRouteMatcher, createRouter } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/radix3/dist/index.mjs';
 import { readFile } from 'node:fs/promises';
-import consola, { consola as consola$1 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/consola/dist/index.mjs';
-import { ErrorParser } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/youch-core/build/index.js';
-import { Youch } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/youch/build/index.js';
-import { SourceMapConsumer } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/source-map/source-map.js';
+import consola, { consola as consola$1 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/consola/dist/index.mjs';
+import { ErrorParser } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/youch-core/build/index.js';
+import { Youch } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/youch/build/index.js';
+import { SourceMapConsumer } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/source-map/source-map.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
-import { stringify, uneval } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/devalue/index.js';
-import { captureRawStackTrace, parseRawStackTrace } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/errx/dist/index.js';
-import { isVNode, isRef, toValue } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/vue/index.mjs';
-import _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/@nuxt/vite-builder/dist/fix-stacktrace.mjs';
+import { stringify, uneval } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/devalue/index.js';
+import { captureRawStackTrace, parseRawStackTrace } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/errx/dist/index.js';
+import { isVNode, isRef, toValue } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/vue/index.mjs';
+import _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/@nuxt/vite-builder/dist/fix-stacktrace.mjs';
 import { promises } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname as dirname$1, resolve as resolve$1 } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/pathe/dist/index.mjs';
-import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/unhead/dist/server.mjs';
-import { renderToString } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/vue/server-renderer/index.mjs';
-import { walkResolver } from 'file:///Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/unhead/dist/utils.mjs';
+import { dirname as dirname$1, resolve as resolve$1 } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/pathe/dist/index.mjs';
+import { createHead as createHead$1, propsToString, renderSSRHead } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/unhead/dist/server.mjs';
+import { renderToString } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/vue/server-renderer/index.mjs';
+import { walkResolver } from 'file:///Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/unhead/dist/utils.mjs';
 
-const serverAssets = [{"baseName":"server","dir":"/Users/mithma.goonawardena/simple-html-3001/color-picker/server/assets"}];
+const serverAssets = [{"baseName":"server","dir":"/Users/mithma.goonawardena/Documents/Projects/copy-function/server/assets"}];
 
 const assets$1 = createStorage();
 
@@ -64,7 +64,7 @@ function normalizeFsKey (item) {
   return `${prefix}-${hash}`
 }
 
-const _47Users_47mithma_46goonawardena_47simple_45html_453001_47color_45picker_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js = defineDriver(
+const _47Users_47mithma_46goonawardena_47Documents_47Projects_47copy_45function_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js = defineDriver(
   /**
    * @param {{ base?: string }} opts
    */
@@ -94,12 +94,12 @@ const storage = createStorage({});
 
 storage.mount('/assets', assets$1);
 
-storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/mithma.goonawardena/simple-html-3001/color-picker","watchOptions":{"ignored":[null]}}));
-storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/mithma.goonawardena/simple-html-3001/color-picker/server","watchOptions":{"ignored":[null]}}));
-storage.mount('cache:nuxt:payload', _47Users_47mithma_46goonawardena_47simple_45html_453001_47color_45picker_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js({"driver":"/Users/mithma.goonawardena/simple-html-3001/color-picker/node_modules/@nuxt/nitro-server/dist/runtime/utils/cache-driver.js","base":"/Users/mithma.goonawardena/simple-html-3001/color-picker/.nuxt/cache/nuxt/payload"}));
-storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/mithma.goonawardena/simple-html-3001/color-picker/.nuxt"}));
-storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/mithma.goonawardena/simple-html-3001/color-picker/.nuxt/cache"}));
-storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/Users/mithma.goonawardena/simple-html-3001/color-picker/.data/kv"}));
+storage.mount('root', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/mithma.goonawardena/Documents/Projects/copy-function","watchOptions":{"ignored":[null]}}));
+storage.mount('src', unstorage_47drivers_47fs({"driver":"fs","readOnly":true,"base":"/Users/mithma.goonawardena/Documents/Projects/copy-function/server","watchOptions":{"ignored":[null]}}));
+storage.mount('cache:nuxt:payload', _47Users_47mithma_46goonawardena_47Documents_47Projects_47copy_45function_47node_modules_47_64nuxt_47nitro_45server_47dist_47runtime_47utils_47cache_45driver_46js({"driver":"/Users/mithma.goonawardena/Documents/Projects/copy-function/node_modules/@nuxt/nitro-server/dist/runtime/utils/cache-driver.js","base":"/Users/mithma.goonawardena/Documents/Projects/copy-function/.nuxt/cache/nuxt/payload"}));
+storage.mount('build', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/mithma.goonawardena/Documents/Projects/copy-function/.nuxt"}));
+storage.mount('cache', unstorage_47drivers_47fs({"driver":"fs","readOnly":false,"base":"/Users/mithma.goonawardena/Documents/Projects/copy-function/.nuxt/cache"}));
+storage.mount('data', unstorage_47drivers_47fs({"driver":"fs","base":"/Users/mithma.goonawardena/Documents/Projects/copy-function/.data/kv"}));
 
 function useStorage(base = "") {
   return base ? prefixStorage(storage, base) : storage;
@@ -2090,13 +2090,13 @@ if (!window.__NUXT_DEVTOOLS_TIME_METRIC__) {
 window.__NUXT_DEVTOOLS_TIME_METRIC__.appInit = Date.now()
 `;
 
-const _sjn_U0G78FZZaWEPiXvn7cknWjPUV_n1Oj9LehT17mE = (function(nitro) {
+const _BChw80RqfMb6PxWnPz8icNpVlHmHFoyiLenIzOaTUU = (function(nitro) {
   nitro.hooks.hook("render:html", (htmlContext) => {
     htmlContext.head.push(`<script>${script}<\/script>`);
   });
 });
 
-const rootDir = "/Users/mithma.goonawardena/simple-html-3001/color-picker";
+const rootDir = "/Users/mithma.goonawardena/Documents/Projects/copy-function";
 
 const appHead = {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"},{"charset":"utf-8"}],"link":[],"style":[],"script":[],"noscript":[]};
 
@@ -2126,7 +2126,7 @@ const asyncContext = getContext("nuxt-dev", {
 	asyncContext: true,
 	AsyncLocalStorage
 });
-const _xyc6TyTwJtyzc7UkD6WKR4qJKBlJ5tTk7mco7TpyfBk = (nitroApp) => {
+const _q8qP5IGq9aVaVei5r8GeaaKH2y2YHodpADLV8Zt38BQ = (nitroApp) => {
 	const handler = nitroApp.h3App.handler;
 	nitroApp.h3App.handler = (event) => {
 		return asyncContext.callAsync({
@@ -2202,8 +2202,8 @@ function onConsoleLog(callback) {
 }
 
 const plugins = [
-  _sjn_U0G78FZZaWEPiXvn7cknWjPUV_n1Oj9LehT17mE,
-_xyc6TyTwJtyzc7UkD6WKR4qJKBlJ5tTk7mco7TpyfBk,
+  _BChw80RqfMb6PxWnPz8icNpVlHmHFoyiLenIzOaTUU,
+_q8qP5IGq9aVaVei5r8GeaaKH2y2YHodpADLV8Zt38BQ,
 _wH6JrtIxmaSoA8lCPWFnE9z4lQeXW6H5z3l5aymEQw
 ];
 
@@ -2232,7 +2232,7 @@ function getAsset (id) {
 
 const METHODS = /* @__PURE__ */ new Set(["HEAD", "GET"]);
 const EncodingMap = { gzip: ".gz", br: ".br" };
-const _uynuzE = eventHandler((event) => {
+const _dBPpMO = eventHandler((event) => {
   if (event.method && !METHODS.has(event.method)) {
     return;
   }
@@ -2737,17 +2737,17 @@ async function getIslandContext(event) {
 	};
 }
 
-const _lazy_1Tf1rw = () => Promise.resolve().then(function () { return _uid__patch$1; });
-const _lazy_CW3dCv = () => Promise.resolve().then(function () { return index_get$1; });
-const _lazy_Hj0Dww = () => Promise.resolve().then(function () { return renderer; });
+const _lazy_4mBOoP = () => Promise.resolve().then(function () { return _uid__patch$1; });
+const _lazy_nBll5w = () => Promise.resolve().then(function () { return index_get$1; });
+const _lazy_7W5_Lh = () => Promise.resolve().then(function () { return renderer; });
 
 const handlers = [
-  { route: '', handler: _uynuzE, lazy: false, middleware: true, method: undefined },
-  { route: '/api/products/:uid', handler: _lazy_1Tf1rw, lazy: true, middleware: false, method: "patch" },
-  { route: '/api/products', handler: _lazy_CW3dCv, lazy: true, middleware: false, method: "get" },
-  { route: '/__nuxt_error', handler: _lazy_Hj0Dww, lazy: true, middleware: false, method: undefined },
+  { route: '', handler: _dBPpMO, lazy: false, middleware: true, method: undefined },
+  { route: '/api/products/:uid', handler: _lazy_4mBOoP, lazy: true, middleware: false, method: "patch" },
+  { route: '/api/products', handler: _lazy_nBll5w, lazy: true, middleware: false, method: "get" },
+  { route: '/__nuxt_error', handler: _lazy_7W5_Lh, lazy: true, middleware: false, method: undefined },
   { route: '/__nuxt_island/**', handler: handler$1, lazy: false, middleware: false, method: undefined },
-  { route: '/**', handler: _lazy_Hj0Dww, lazy: true, middleware: false, method: undefined }
+  { route: '/**', handler: _lazy_7W5_Lh, lazy: true, middleware: false, method: undefined }
 ];
 
 function createNitroApp() {

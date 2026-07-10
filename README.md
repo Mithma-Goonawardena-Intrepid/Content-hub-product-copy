@@ -17,11 +17,11 @@ This project is a Contentstack Marketplace app used to copy selected fields from
 ## Runtime Flow
 
 1. Frontend requests `GET /api/products`.
-2. Vite middleware handles the request and calls server-side fetch logic.
+2. Nuxt Nitro server route handles the request and calls server-side fetch logic.
 3. Server-side fetch uses Contentstack Management SDK and applies delivery-like filters/sorting.
 4. User selects fields and submits update.
 5. Frontend calls `PATCH /api/products/:uid`.
-6. Vite middleware proxies update to server-side update logic, which sends a `PUT` to Contentstack Management API.
+6. Nuxt Nitro server route proxies update to server-side update logic, which sends a `PUT` to Contentstack Management API.
 
 ## Local API Endpoints
 
@@ -48,30 +48,30 @@ The app also supports additional Contentstack config values used by shared clien
 ## Development
 
 ```bash
-npm install
-npm run dev
+yarn install
+yarn dev
 ```
 
-App runs on `http://localhost:3000` by default.
+App runs on `http://localhost:3000` by default (or next available port if `3000` is already in use).
 
 ## Scripts
 
-- `npm run dev` - Start local dev server
-- `npm run build` - Build production bundle
-- `npm run build:check` - TypeScript build check + Vite build
-- `npm run typecheck` - Run TypeScript no-emit check
-- `npm run lint` - Run ESLint
-- `npm run format` - Run Prettier for src files
-- `npm run preview` - Preview built app
+- `yarn dev` - Start Nuxt 4 dev server
+- `yarn build` - Build Nuxt production output
+- `yarn build:check` - Nuxt typecheck + Nuxt build
+- `yarn typecheck` - Run Nuxt typecheck
+- `yarn lint` - Run ESLint
+- `yarn format` - Run Prettier for src files
+- `yarn preview` - Preview Nuxt production build
 
 E2E scripts:
 
-- `npm run test:chrome`
-- `npm run test:firefox`
-- `npm run test:chrome-headed`
-- `npm run test:firefox-headed`
-- `npm run test:report`
-- `npm run test:report-ci`
+- `yarn test:chrome`
+- `yarn test:firefox`
+- `yarn test:chrome-headed`
+- `yarn test:firefox-headed`
+- `yarn test:report`
+- `yarn test:report-ci`
 
 ## Notes
 

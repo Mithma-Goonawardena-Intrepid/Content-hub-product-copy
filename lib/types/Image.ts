@@ -1,5 +1,10 @@
-import type { Image as PhoenixImage } from "phoenix/src/components/Gallery/props";
-import type { ProfilePicture as PhoenixProfilePicture } from "phoenix/src/components/ProfileCard/props";
+type PhoenixImage = {
+  [key: string]: unknown;
+};
+
+type PhoenixProfilePicture = {
+  [key: string]: unknown;
+};
 
 export enum BackgroundColor {
   Map = "#b4d6f4",

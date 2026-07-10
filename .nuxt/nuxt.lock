@@ -1,0 +1,9 @@
+{
+  "pid": 11368,
+  "startedAt": 1783659655795,
+  "command": "dev",
+  "cwd": "/Users/mithma.goonawardena/simple-html-3001/color-picker",
+  "port": 3002,
+  "hostname": "::1",
+  "url": "http://[::1]:3002"
+}
